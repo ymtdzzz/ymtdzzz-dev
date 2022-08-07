@@ -60,7 +60,7 @@ error[E0596]: cannot borrow data in a `&` reference as mutable
 
 `as_bytes()` の返り値はバイト配列への不変参照になるので、それを可変な変数に格納しても、 `set_bit()` でバイト配列には可変アクセスできないのでした。
 
-![](/images/old/ox-hugo/20201030_094537.png")
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20201030_094537.png)
 
 
 ## 解決策 {#解決策}

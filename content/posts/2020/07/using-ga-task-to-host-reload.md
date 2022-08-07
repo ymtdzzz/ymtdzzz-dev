@@ -106,7 +106,7 @@ task run
 
 フォルダ構成（抜粋）は下記の通り。
 
-![](/images/old/ox-hugo/overview.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/overview.png)
 
 
 ### Dockerfile {#dockerfile}

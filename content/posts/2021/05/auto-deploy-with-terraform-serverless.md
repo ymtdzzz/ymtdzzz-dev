@@ -26,11 +26,11 @@ category: Infrastructure
 
 現状のデプロイ構成はこんな感じでした。
 
-![](/images/old/ox-hugo/before-structure.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/before-structure.png)
 
 単純化するとこんな感じ。
 
-![](/images/old/ox-hugo/before-simple-structure.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/before-simple-structure.png)
 
 まとめると下記のような感じです。
 
@@ -84,9 +84,9 @@ category: Infrastructure
 
 インフラ＆デプロイ構成は下記の通り。
 
-![](/images/old/ox-hugo/after-structure.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/after-structure.png)
 
-![](/images/old/ox-hugo/after-simple-structure.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/after-simple-structure.png)
 
 SQSとLambdaが連携してたり、Laravelでバッチ用のコンテナがあったりで色々それっぽく作りました。Laravelについては、パブリックリポジトリにしている関係でenv系を暗号化するライブラリを入れていたりしてますが構成はほぼプレーンな状態です。
 

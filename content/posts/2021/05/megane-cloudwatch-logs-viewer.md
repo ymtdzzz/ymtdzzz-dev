@@ -43,7 +43,7 @@ category: Programming
 
 [zeroclock/megane - GitHub](https://github.com/zeroclock/megane)
 
-![](/images/oldhttps://github.com/zeroclock/megane/raw/master/image/screenshot.png" caption="Figure 1: スクリーンショット)
+![](https://github.com/zeroclock/megane/raw/master/image/screenshot.png)
 
 CLIでログをサクッと見れるツールになっています。
 

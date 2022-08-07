@@ -22,7 +22,7 @@ category: Programming
 
 「Business Logic Component」の略。状態のインプット、アウトプットをdartのStreamに限定して行うことで、データの一方通行化を実現する。
 
-![](/images/old/wordpress/ef72fa8c5e5212ed403a051987637e90-800x480.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/ef72fa8c5e5212ed403a051987637e90-800x480.png)
 
 ### 登場人物
 

@@ -59,7 +59,7 @@ PHPの場合はCustom Runtimeを作成すれば問題無く動作します（今
 
 流れを図式化すると、下記のような感じです。
 
-![](/images/old/ox-hugo/20200901_210418.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20200901_210418.png)
 
 ローカルで開発したイメージをそのままLambdaにデプロイできるので、スムーズにLambdaの開発を行うことができます。
 
@@ -268,7 +268,7 @@ $ curl -d '{}' http://localhost:9001/2015-03-31/functions/hello/invocations
 
 さて、ここまでくると下記のようなディレクトリ構成になっているかと思います。
 
-![](/images/old/ox-hugo/overview.svg")
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/overview.svg)
 
 インストールは、[GithubのReleaseページ](https://github.com/awslabs/aws-lambda-container-image-converter/releases) から、それぞれのプラットフォーム用のバイナリをダウンロードしてパスが通ってるところに配置するだけです。
 
@@ -330,7 +330,7 @@ $ sls deploy
 
 正常に完了すると、きちんとLambdaとAPI Gatewayが作成されていることがわかります。
 
-![](/images/old/ox-hugo/20200902_091337.png")
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20200902_091337.png)
 
 実際にPOSTしてみると、たしかに期待通りのレスポンスが返ってきています。
 

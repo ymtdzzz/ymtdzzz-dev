@@ -5,7 +5,7 @@ My blog
 
 ```sh
 cd gridsome-flex-markdown-starter
-ln -s $(pwd)/images ./gridsome-flex-markdown-starter/static/images
+ln -s $(pwd)/images ./gridsome-flex-markdown-starter/src/assets/images
 yarn
 gridsome develop
 ```

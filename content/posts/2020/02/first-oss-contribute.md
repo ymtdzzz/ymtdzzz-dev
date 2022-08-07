@@ -18,7 +18,7 @@ category: Diary
 
 使ってみて真っ先に目についたバグが、テーブルのmarkdownプレビューがテーマによって真っ白になってしまう事象。 
 
-![](/images/old/wordpress/Boost-Note-2020-02-11-15-19-15-800x242.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/Boost-Note-2020-02-11-15-19-15-800x242.png)
 
 すでにissueが切られてた。 [Table content not visible for preview in dark mode][1] 
 
@@ -43,7 +43,7 @@ ${backgroundColor}
 
 [Fix #309][2] 
 
-![](/images/old/wordpress/344879805f2187a5b657a81dd32075f8-800x655.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/344879805f2187a5b657a81dd32075f8-800x655.png)
 
 ソースの変更内容をforkしたリポジトリにpushする。すると、気の利いたgithubがプルリク作成をsuggestしてくるので、プルリクを作成する。 
 
@@ -51,7 +51,7 @@ ${backgroundColor}
 
 ### 無事マージ
 
-![](/images/old/wordpress/168a11baad877ef2337bc9050df2c93d-800x223.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/168a11baad877ef2337bc9050df2c93d-800x223.png)
 
 数日後、無事マージ。 
 

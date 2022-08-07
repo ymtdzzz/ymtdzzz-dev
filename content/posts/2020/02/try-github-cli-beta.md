@@ -46,7 +46,7 @@ Notice: authentication required
 Press Enter to open github.com in your browser...
 ```
 
-![](/images/old/wordpress/Authorize-application-2020-02-24-12-08-58.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/Authorize-application-2020-02-24-12-08-58.png)
 
 ## issue関連のコマンド
 
@@ -67,7 +67,7 @@ Creating issue in zeroclock/gh-cli-test
 
 で「Preview in browser」を選択すると、下記のようにブラウザで入力内容を確認できる。
 
-![](/images/old/wordpress/738c9e8bbcbfe437f7b5d9ffcf692973-800x514.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/738c9e8bbcbfe437f7b5d9ffcf692973-800x514.png)
 
 「Submit」を選択すると、そのままissueが作成される。 
 
@@ -151,7 +151,7 @@ Creating pull request for fix/feature-test into master in zeroclock/gh-cli-test
 Opening github.com/zeroclock/gh-cli-test/compare/master...fix/feature-test in your browser.
 ```
 
-![](/images/old/wordpress/155a5c68c9135cc79f215d198479fd7b-800x561.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/155a5c68c9135cc79f215d198479fd7b-800x561.png)
 
 ### list
 

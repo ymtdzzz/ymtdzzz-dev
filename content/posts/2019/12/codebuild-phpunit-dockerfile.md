@@ -18,7 +18,7 @@ category: Infrastructure
 
 前提とする構成は下記の通り。
 
-![](/images/old/wordpress/785d0628.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/785d0628.png)
   
 （created with cloudcraft.io） 
 

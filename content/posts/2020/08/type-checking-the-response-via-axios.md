@@ -50,7 +50,7 @@ const hoge = () => {
 
 IDEで型推定を確認すると、確かに `CatApiResponse` になっている。
 
-![](/images/old/ox-hugo/20200812_175551.png)
+![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20200812_175551.png)
 
 けど、実際はnullかもしれないし、 `CatApiResponse` のinterfaceに則したデータ構造じゃないかもしれない。で、実際に変なデータを返すAPIを用意して実行すると、案の定 `data.data.parents.map()` のところでコケる。でも、IDEにも怒られないし、コンパイル時にもツッコまれない。
 
