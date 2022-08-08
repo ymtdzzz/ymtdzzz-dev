@@ -4,7 +4,7 @@ title: Y.Matsuda (ymtdzzz)
 
 普段はK8sやECSのようなクラウドネイティブな技術を使ったマイクロサービスの開発をを行っています。
 
-このブログでは、仕事で使った技術の治験や個人的な興味で調査したことなどをまとめる予定です。
+このブログでは、仕事で使った技術の知見や個人的な興味で調査したことなどをまとめる予定です。
 
 - [Github](https://github.com/ymtdzzz)
 - [Twitter](https://twitter.com/ymtdzzz)
