@@ -1,5 +1,5 @@
 ---
-title: "ClusterInformation: connectionis unauthorized: Unauthorized でpodがstuckしたときの対応"
+title: "ClusterInformation: connectionis unauthorized: Unauthorized でnodeのdrainがstuckしたときの対応"
 date: 2022-08-08
 tags:
   - "kubernetes"
@@ -44,7 +44,7 @@ Warning  FailedKillPod  2m28s (x162 over 37m)  kubelet  error killing pod: faile
 - マシンの再起動をしても解消せず
 - 社内のVPNを切断しても解消せず
 - Pod Distruption Budgetの予算使い切って一時的に待機しているわけでもなさそう
-    - エラーが明らかに違う
+    - エラーの内容が明らかに違う
     - Deploymentのrunning pod countはrequiredを満たしている
 
 ## 対応
@@ -69,7 +69,7 @@ Warning  FailedKillPod  2m28s (x162 over 37m)  kubelet  error killing pod: faile
 
 どちらもcalico起因かもっていうのはわかりましたが、そこまで時間無かったのと発生パターンが掴めなかったのであまり深追いしませんでした。
 
-GKEでノード上げたりノード数変更したり色々やっていたのでそのあたりが関連したのかもしれませんが、特にpodが上がらなくなってアプリが死んだとかでは無かったので。
+GKEでノード上げたりノード数変更したり色々やっていたのでそのあたりが関連したのかもしれませんが、特にpodが上がらなくなってアプリが死んだとか実害は無かったので。
 
 ## まとめ
 
