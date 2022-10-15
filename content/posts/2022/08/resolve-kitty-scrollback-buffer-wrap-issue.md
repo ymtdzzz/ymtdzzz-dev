@@ -27,11 +27,11 @@ category: Tool
 
 すると、shell上だと下記のように折り返して表示されます。
 
-![scrollback_01.png](../../../../gridsome-flex-markdown-starter/src/assets/images/2022/08/scrollback_01.png)
+![scrollback_01.png](../../../../gridsome-theme/src/assets/images/2022/08/scrollback_01.png)
 
 ここまでは想定通りですが、このscreenback bufferをvimで開いてみます（デフォルトなら`Cmd+h`）。
 
-![scrollback_02.png](../../../../gridsome-flex-markdown-starter/src/assets/images/2022/08/scrollback_02.png)
+![scrollback_02.png](../../../../gridsome-theme/src/assets/images/2022/08/scrollback_02.png)
 
 画面上の改行も含めてまるっとvimに渡されてしまっています。エディタに渡された時点ですでにこうなっているので、`set nowrap`とか行番号を消しても無意味です。
 
@@ -86,7 +86,7 @@ Events:            <none>
 
 すると、エディタ上ではちゃんとwrapが効いているがきちんと一行として表示されてくれます。
 
-![scrollback_03.png](../../../../gridsome-flex-markdown-starter/src/assets/images/2022/08/scrollback_03.png)
+![scrollback_03.png](../../../../gridsome-theme/src/assets/images/2022/08/scrollback_03.png)
 
 コピペしても想定通りの形になります。
 

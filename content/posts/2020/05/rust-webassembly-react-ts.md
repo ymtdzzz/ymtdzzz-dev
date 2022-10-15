@@ -271,7 +271,7 @@ module.exports = {
 $ npm run start
 ```
 
-![wasm 無しバージョン](../../../../gridsome-flex-markdown-starter/src/assets/images/old/images/20200528/wasm-react-tutorial-no-wasm.png)
+![wasm 無しバージョン](../../../../gridsome-theme/src/assets/images/old/images/20200528/wasm-react-tutorial-no-wasm.png)
 
 続いて、wasm の greet()メソッドを読んでみます。
 
@@ -290,6 +290,6 @@ const App = () => {
 export default App;
 ```
 
-![wasm 呼び出してみる](../../../../gridsome-flex-markdown-starter/src/assets/images/old/images/20200528/wasm-react-tutorial.png)
+![wasm 呼び出してみる](../../../../gridsome-theme/src/assets/images/old/images/20200528/wasm-react-tutorial.png)
 
 これで自由に React アプリから wasm を import できるようになりました！

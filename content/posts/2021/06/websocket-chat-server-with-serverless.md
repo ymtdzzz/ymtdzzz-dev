@@ -23,19 +23,19 @@ category: Infrastructure
 <https://reactplayground.zeroclock.dev/WebsocketChat>
 
 -   複数タブで開く
-    ![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/2021-06-06_21-18.png)
+    ![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/2021-06-06_21-18.png)
 
 -   Sign Upでユーザ登録＆ログイン
-    ![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/2021-06-06_21-20.png)
+    ![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/2021-06-06_21-20.png)
 
 -   お互いのIDを教え合う
-    ![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/2021-06-06_21-23.png)
+    ![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/2021-06-06_21-23.png)
 
 -   チャットする
-    ![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/2021-06-06_21-24.png)
+    ![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/2021-06-06_21-24.png)
 
 -   片方が切断すれば、きちんとステータスも変わります
-    ![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/2021-06-06_21-25.png)
+    ![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/2021-06-06_21-25.png)
 
 上記以外にも、切断後に再度ログインして相手IDを入力して再接続すると、過去のメッセージもきちんと再現してくれます（メッセージ情報の永続化）。
 
@@ -44,7 +44,7 @@ category: Infrastructure
 
 今回は、サーバレス（Lambda）でチャットサーバーを構築することを検討してみました。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/06-06-overview.svg)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/06-06-overview.svg)
 
 API GatewayがWebsocketのフロントエンドとして機能し、リクエストに応じて各バックエンド(handlers)にリクエストを流します。
 
@@ -70,7 +70,7 @@ Websocketはイベント駆動なので、 `GETMSG` のリクエストを送信�
 
 よって、例としてメッセージ配信後に相手が接続を切った場合の処理フローは下記のようになります。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/06-06-overview2.svg)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/06-06-overview2.svg)
 
 
 ## 実装 {#実装}

@@ -30,7 +30,7 @@ category: Infrastructure
 
 ということで、今回は下記のような構成で作ってみたいと思います。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20201115_090125.png)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/20201115_090125.png)
 
 > 1.  ローカルでコーディング、テスト、動作確認
 > 2.  GitにPush（masterブランチはdev環境、releaseブランチはrelease環境）
@@ -419,7 +419,7 @@ $ sls deploy --stage dev
   serverlessのcredential設定＆デプロイ実行
 </div>
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20201115_132753.png)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/20201115_132753.png)
 
 デプロイ後、表示されたエンドポイントにPOSTしてみて、想定通りのレスポンスが返却されることを確認します。
 
@@ -731,7 +731,7 @@ $ bash coverage.sh
 
 成功したら、 `report/index.html` をブラウザで開くとカバレッジが見れます。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20201115_173404.png)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/20201115_173404.png)
 
 これで、カバレッジ計測までいけました。
 
@@ -915,17 +915,17 @@ comment: # See: https://docs.codecov.io/docs/pull-request-comments
 
 では、実際にmasterブランチとreleaseブランチにそれぞれPushしてみます。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20201115_223352.png)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/20201115_223352.png)
 
 念の為それぞれの環境でAPIを叩いてみます。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20201115_230831.png)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/20201115_230831.png)
 
 問題無さそうですね。
 
 では、プルリクしてみます。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/20201115_225134.png)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/20201115_225134.png)
 
 きちんとカバレッジレポートがコメントされています。
 

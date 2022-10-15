@@ -1,3 +1,6 @@
 [submodule "gridsome-flex-markdown-starter"]
 	path = gridsome-flex-markdown-starter
 	url = https://github.com/ymtdzzz/gridsome-flex-markdown-starter.git
+[submodule "gridsome-theme"]
+	path = gridsome-theme
+	url = https://github.com/ymtdzzz/gridsome-theme.git

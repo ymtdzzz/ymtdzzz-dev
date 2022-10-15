@@ -103,4 +103,4 @@ $ denolsinit
 
 元から`tsconfig.json`があっても既存部分は書き換えないのでご安心くださいませ。ただ、Mac でしかテストしていないので Windows とか Linux で動作おかしかったら issue とかでお願いします。
 
-![doom emacs で deno 対応](../../../../gridsome-flex-markdown-starter/src/assets/images/old/images/20200510/doom-emacs-auto-completion.png)
+![doom emacs で deno 対応](../../../../gridsome-theme/src/assets/images/old/images/20200510/doom-emacs-auto-completion.png)

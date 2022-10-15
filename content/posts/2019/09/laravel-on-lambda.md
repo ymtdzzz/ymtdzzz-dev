@@ -157,7 +157,7 @@ $ sam deploy --template-file serverless-output.yaml --stack-name ＜任意のス
 
 API Gatewayのエンドポイントにアクセスすると、Laravelのwelcome画面が表示されます。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/laravel.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/laravel.png)
 
 やったぜ。
 

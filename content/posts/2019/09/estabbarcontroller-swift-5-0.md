@@ -21,7 +21,7 @@ category: Programming
 
 ただ、Swift経験が浅いのもあってちょこっと手こずったので、今回はチュートリアル形式で記事にしておきたいと思います。 最終的には以下のような動作を実現します。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/center_big_tab.gif)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/center_big_tab.gif)
 
 ## **ライブラリの導入**
 
@@ -71,7 +71,7 @@ $(SRCROOT)/Carthage/Build/iOS/pop.framework
 
 ひとまず普通のタブバーを作りたいと思います。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/normal_tab.gif)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/normal_tab.gif)
 
 ### **storyboardの作成**
 
@@ -86,7 +86,7 @@ $(SRCROOT)/Carthage/Build/iOS/pop.framework
 
 はじめに「MainTabViewController.swift」を作成し、Main.storyboardのinitialViewControllerにアタッチします（デフォルトの「ViewController.swift」はいらないので削除）。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/01_attach_to_mainStoryboard.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/01_attach_to_mainStoryboard.png)
 
 MainTabViewControllerにコードを追加する前に、ESTabBarを制御する「TabBarContentViewController.swift」を作成します。 まずは通常タブ（tabBarItem）用のクラスを下記の通り定義します（作成時に自動付与されるクラス名から変更していることに注意）。 
 
@@ -192,7 +192,7 @@ class MainTabBarController: ESTabBarController {
 
 続いて、First.storyboardとSecond.storyboardとThird.storyboardについて、UIViewController（例:FirstViewController等）を作成＋initialViewControllerの設定を済ませ、Identity inspectorの[identity]内、[Storyboard ID]をそれぞれFirst,Second,Thirdとしておきます。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/02_storyboard_settings.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/02_storyboard_settings.png)
 
 これで、オーソドックスなナビゲーションバー＋アニメーション付きのタブバーは完成です。 
 
@@ -200,7 +200,7 @@ class MainTabBarController: ESTabBarController {
 
 続いて、最近よく見かける真ん中だけ大きくなっているスタイルのタブを作成します。今回はそれをタップするとカメラを起動orアルバムから追加するか選択するアクションが出てきます。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/center_big_tab.gif)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/center_big_tab.gif)
 
 ### **コントローラーの編集**
 
