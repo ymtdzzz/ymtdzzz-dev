@@ -4,8 +4,8 @@ My blog
 ## getting started
 
 ```sh
-cd gridsome-flex-markdown-starter
-ln -s $(pwd)/images ./gridsome-flex-markdown-starter/src/assets/images
+ln -s $(pwd)/images ./gridsome-theme/src/assets/images
+cd gridsome-theme
 yarn
 gridsome develop
 ```
@@ -13,6 +13,6 @@ gridsome develop
 ## build
 
 ```sh
-cd gridsome-flex-markdown-starter
+cd gridsome-theme
 gridsome build
 ```
