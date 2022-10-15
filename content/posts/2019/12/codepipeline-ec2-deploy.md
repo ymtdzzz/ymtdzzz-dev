@@ -29,7 +29,7 @@ CloudFormationを使用してLambdaにデプロイする方法についても今
 
 構成についても再掲になるが、下記の通り。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/785d0628.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/785d0628.png)
 （created with cloudcraft.io）
 
 やりたいこととしては以下のような流れを実現すること。 
@@ -44,7 +44,7 @@ CloudFormationを使用してLambdaにデプロイする方法についても今
 
 ### EC2の起動
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/107b76b5-800x439.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/107b76b5-800x439.png)
 
 今回は無料枠対象のインスタンスを使用する。
 
@@ -54,7 +54,7 @@ CloudFormationを使用してLambdaにデプロイする方法についても今
 
 apacheのインストール、起動完了後、EC2のpublicIPにアクセスして、apacheが正常に動作していることを確認する。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/8a5354ba-800x222.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/8a5354ba-800x222.png)
 
 その後、ドキュメントルート（デフォルトなら/var/www/html）にindex.phpを作成し、テストコードを記述しておく。 
 
@@ -65,19 +65,19 @@ echo 'テストページ';</code></pre>
 
 表示後
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/28e30c49-800x368.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/28e30c49-800x368.png)
 
 ### CodeCommitへのpush
 
 CodeCommitで適当なリポジトリを作成して、先程のindex.phpをpushする。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/f510b625-800x226.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/f510b625-800x226.png)
 
 ### CodeBuildの準備
 
 適当なビルドプロジェクトを作成する。CodePipelineで詳細な設定を行うため、環境情報（使用するコンテナイメージ等）以外は適当でも特に問題無し。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/433d3b85-800x408.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/433d3b85-800x408.png)
 
 CodeBuildの設定ファイルであるbuildspec.ymlは下記の通り 
 
@@ -118,11 +118,11 @@ $ sudo service codedeploy-agent status
 
 コンピューティングプラットフォームは「EC2/オンプレミス」を設定する。 デプロイグループを作成する。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/56104b2b-800x361.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/56104b2b-800x361.png)
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/1f61a6a2-800x392.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/1f61a6a2-800x392.png)
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/9b227dc9-800x312.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/9b227dc9-800x312.png)
 
 ※EC2インスタンスにはタグによって識別されるため、予め設定しておく。 
 
@@ -134,7 +134,7 @@ $ sudo service codedeploy-agent status
 
 ビルドステージは下記の通り、作成したビルドプロジェクト名を指定する。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/af4e28f8-800x353.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/af4e28f8-800x353.png)
 
 デプロイステージは後で設定するので「導入段階をスキップ」する。 
 
@@ -146,7 +146,7 @@ $ sudo service codedeploy-agent status
 
 追加されたステージの「アクショングループを追加する」を押下し、下記の通り入力。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/07d0acb7-800x413.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/07d0acb7-800x413.png)
 
 ※サービスロールはユースケース「CodeDeploy」を選択して作成したものを指定（AmazonS3FullAccessをアタッチしておく）。 
 
@@ -166,7 +166,7 @@ files:
 
 デプロイ対象のEC2のインスタンスに、CodeDeployエージェント用の権限を設定したIAMロールをアタッチし、CodeBuildエージェントを再起動する。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/924e0e67-800x384.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/924e0e67-800x384.png)
 
 ```bash
 $ sudo service codedeploy-agent restart
@@ -176,7 +176,7 @@ $ sudo service codedeploy-agent restart
 
 index.phpを適当な文言に変更して、pushしてみる。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/4c96f2ad-800x302.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/4c96f2ad-800x302.png)
 
 めちゃくちゃ見づらいが、更新されていることがわかる。 
 

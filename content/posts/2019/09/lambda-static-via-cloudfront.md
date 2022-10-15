@@ -166,6 +166,6 @@ CloudFrontの
   
 これでLambdaのAPI&nbsp;Gatewayのendpointに接続すると･･･ 
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/static-via-cdn.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/static-via-cdn.png)
 
 現場からは以上です。

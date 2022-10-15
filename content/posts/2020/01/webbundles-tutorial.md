@@ -123,13 +123,13 @@ Chromeのバージョンが79以下の場合 拡張機能[Chrome Canary][6]を�
 
 `chrome://flags/#web-bundles`にアクセスし、Enabledに設定する。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/d29d4974-800x168.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/d29d4974-800x168.png)
 
 ### 実際に表示してみる
 
 ここまできたら、後はwbnファイルをChromeのウィンドウに投げ込むだけ。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/a8152aac-800x271.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/a8152aac-800x271.png)
 
 ローカルで実行しているのにも関わらず問題無くjavascriptが動作している。 
 

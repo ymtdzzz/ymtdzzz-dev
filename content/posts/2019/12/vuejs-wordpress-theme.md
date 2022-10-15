@@ -25,15 +25,15 @@ WordpressをAPIとしてのみ使用し、完全に独立したSPAサイトを�
 
   * Google Insights
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/bd42ca71-800x232.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/bd42ca71-800x232.png)
 
   * Google Lighthouse
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/7f2659a1-800x234.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/7f2659a1-800x234.png)
 
   * Google モバイルフレンドリーテスト   
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/a69beede-800x713.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/a69beede-800x713.png)
 
 アクセシビリティは86だったが、基盤的な所で修正が必要な項目は特になかったので、ちょこちょこした所を修正して90台には載せたいと思う。 
 

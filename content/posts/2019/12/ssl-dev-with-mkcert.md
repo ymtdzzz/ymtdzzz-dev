@@ -86,7 +86,7 @@ SSLCertificateKeyFile /etc/httpd/conf/localhost-key.pem
 設定を終えたらhttpsで任意の先程作成した証明書のドメインにアクセスする。
 
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/wordpress/46a4e1dd.png)
+![](../../../../gridsome-theme/src/assets/images/old/wordpress/46a4e1dd.png)
 
 警告が出ることもなく、信頼された証明書としてちゃんと認識される。 
 

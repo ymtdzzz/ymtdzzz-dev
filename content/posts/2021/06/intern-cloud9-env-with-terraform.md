@@ -43,7 +43,7 @@ Terraformで作ってGithubに置いておきました。
 
 ざっくりとこんな感じの環境を作りました。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/06-03-overview.svg)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/06-03-overview.svg)
 
 ### 構成について {#構成について}
 
@@ -86,7 +86,7 @@ resource "aws_iam_user" "this" {
 
 具体的な構築手順は下記の通り。
 
-![](../../../../gridsome-flex-markdown-starter/src/assets/images/old/ox-hugo/06-03-overview2.svg)
+![](../../../../gridsome-theme/src/assets/images/old/ox-hugo/06-03-overview2.svg)
 
 インフラの手動構築（AWSのコンソールでのポチポチ）は不要ですが、各環境内部で実施する作業は、 ~~自動化する時間がありませんでした~~ 自動化しませんでした。
 

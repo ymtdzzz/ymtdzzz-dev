@@ -41,7 +41,7 @@ image_diff.save("image_diff.png");
 
 すると、下記のような感じで差分が検出されます。
 
-![diff_sample](../../../../gridsome-flex-markdown-starter/src/assets/images/old/images/20200526/sample.png)
+![diff_sample](../../../../gridsome-theme/src/assets/images/old/images/20200526/sample.png)
 
 もちろん、サイズ違いの画像を読み込ませても使えます。
 

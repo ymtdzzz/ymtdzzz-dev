@@ -32,7 +32,7 @@ Electron の Render プロセスでクロスオリジンのリクエストを投
 
 ## IpcEvent で Main process に処理をしてもらう
 
-![処理フロー](../../../../gridsome-flex-markdown-starter/src/assets/images/old/images/20200610/image.png)
+![処理フロー](../../../../gridsome-theme/src/assets/images/old/images/20200610/image.png)
 
 Electron の IpcEvent を使うことで、Render process から任意のタイミングで Main  process の関数を call することができます。
 
