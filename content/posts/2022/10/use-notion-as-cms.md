@@ -39,10 +39,7 @@ category: Programming
 
 - Notion APIからの記事情報取得とmarkdownへの変換
 - Notionから取得した記事と既存リポジトリとの差分確認
-	- 画像パスがS3の署名付きURLで毎回差分が出てしまう問題
 - Gitのcommit&pushからのPR作成
-	- 既にbranchがあったらそれにcommitを積む
-	- PRが既にあったらPRは作成しない
 - 実行場所
 
 # 実装
@@ -69,7 +66,7 @@ Notion APIに公式クライアントがあるのでありがたく使わせて�
 [https://github.com/makenotion/notion-sdk-js](https://github.com/makenotion/notion-sdk-js)
 
 
-初期化方法などについては公式ドキュメントを見ていただくとして、記事情報取得部分。
+初期化方法などについては公式ドキュメントを見ていただくとして、記事情報取得部分について。
 
 
 ```typescript
@@ -106,10 +103,46 @@ Notion APIに公式クライアントがあるのでありがたく使わせて�
 ```
 
 
+ページネーションの概念があるので`do-while`で全部回します。メモリ的な部分は記事の数がやばいことになってから考えます。
+
+
+`query()`の結果に`has_more`があるので、それが`true`の間記事を取得し続ける感じです。また、`next_cursor`で毎回取得位置を設定しています。
+
+
+最後に配列に詰める際にisPageObjectReponse()で型ガードで確認しつつ型アサーションしてますが、`query()`の戻りの型が`(PartialPageObjestResponse | PageObjectResponse)[]`なので入れています。Partialの方は`type`と`id`しかpropertyが無いのですが、多分今回の叩き型だとそっちは対象データじゃ無さそうなので。
+
+
+### markdownへの変換
+
+
+記事情報をmarkdownに変換するのは自前でやろうとすると結構大変で、blockを再帰的にAPIを叩いて取得しつつ、`type`（textとかlinkとか）毎に正しいmarkdownに置き換えていく必要があります。
+
+
+今回は [notion-to-md](https://github.com/souvikinator/notion-to-md) でやってくれるのでサクッといけました。
+
+
+```typescript
+const nclient = new Client({
+  auth: config.notion.token,
+  logLevel: LogLevel.DEBUG,
+});
+// ...
+const n2m = new NotionToMarkdown({ notionClient: nclient });
+// ...
+for (const page of pages) {
+      const mdblocks = await n2m.pageToMarkdown(page.id);
+      const mdString = n2m.toMarkdownString(mdblocks);
+// ...
+```
+
+
 ## Notionから取得した記事と既存リポジトリとの差分確認
 
 
-TBD
+### Git関連の操作
+
+
+### 画像パスがS3の署名付きURLで毎回差分が出てしまう問題
 
 
 ## Gitのcommit&pushからのPR作成
