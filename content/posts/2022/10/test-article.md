@@ -49,7 +49,7 @@ Bun uses the JavaScriptCore engine, which tends to start and perform a little fa
 ## 画像2
 
 
-![ed17c715-4171-442d-aa50-26d18a587bae.png](../../../../gridsome-theme/src/assets/images/notion/ed17c715-4171-442d-aa50-26d18a587bae.png)
+![07f9abc8-d916-4ebd-a887-6289a3f10183.png](../../../../gridsome-theme/src/assets/images/notion/07f9abc8-d916-4ebd-a887-6289a3f10183.png)
 
 
 ## 引用
