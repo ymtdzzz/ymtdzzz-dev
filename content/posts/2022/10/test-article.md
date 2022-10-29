@@ -1,5 +1,5 @@
 ---
-title: テスト記事
+title: テスト記事 - updated
 date: 2022-10-26
 tags:
  - Makefile
@@ -32,7 +32,7 @@ aiueo
 ## 画像
 
 
-![l63e0g8h908.png](../../../../gridsome-theme/src/assets/images/notion/l63e0g8h908.png)
+![7v45lli0hd.png](../../../../gridsome-theme/src/assets/images/notion/7v45lli0hd.png)
 
 
 ## コードブロック
@@ -46,7 +46,7 @@ Bun uses the JavaScriptCore engine, which tends to start and perform a little fa
 ## 画像2
 
 
-![4dfjqqllrlo.png](../../../../gridsome-theme/src/assets/images/notion/4dfjqqllrlo.png)
+![3l2u5mp90pg.png](../../../../gridsome-theme/src/assets/images/notion/3l2u5mp90pg.png)
 
 
 ## 引用
