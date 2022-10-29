@@ -32,7 +32,7 @@ aiueo
 ## 画像
 
 
-![3d94q57u1o8.png](../../../../gridsome-theme/src/assets/images/notion/3d94q57u1o8.png)
+![7ojpoqoaa48.png](../../../../gridsome-theme/src/assets/images/notion/7ojpoqoaa48.png)
 
 
 ## コードブロック
@@ -46,7 +46,7 @@ Bun uses the JavaScriptCore engine, which tends to start and perform a little fa
 ## 画像2
 
 
-![gc213pn9s6o.png](../../../../gridsome-theme/src/assets/images/notion/gc213pn9s6o.png)
+![41vvehtcblo.png](../../../../gridsome-theme/src/assets/images/notion/41vvehtcblo.png)
 
 
 ## 引用
