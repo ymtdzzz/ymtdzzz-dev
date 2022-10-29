@@ -13,7 +13,7 @@ category: Programming
 先日、Notionから自動的に自ブログの記事更新分を自動commit&pushしてpull requestを作成してくれるツールを作りました。
 
 
-[link_preview](https://github.com/ymtdzzz/notion-blog-converter)
+[https://github.com/ymtdzzz/notion-blog-converter](https://github.com/ymtdzzz/notion-blog-converter)
 
 
 主に使用した技術スタックとしては下記の通り。
@@ -66,7 +66,44 @@ category: Programming
 Notion APIに公式クライアントがあるのでありがたく使わせてもらいます。
 
 
-[link_preview](https://github.com/makenotion/notion-sdk-js)
+[https://github.com/makenotion/notion-sdk-js](https://github.com/makenotion/notion-sdk-js)
+
+
+初期化方法などについては公式ドキュメントを見ていただくとして、記事情報取得部分。
+
+
+```typescript
+		do {
+        const res: QueryDatabaseResponse = await this.client.databases.query({
+          database_id: database_id,
+          start_cursor: cursor,
+          filter: {
+            and: [
+              {
+                property: this._config.props.exclude_checkbox,
+                checkbox: {
+                  equals: false,
+                },
+              },
+              {
+                property: this._config.props.include_checkbox,
+                checkbox: {
+                  equals: true,
+                },
+              },
+            ],
+          },
+        });
+
+        has_more = res.has_more;
+        cursor = res.next_cursor !== null ? res.next_cursor : undefined;
+        posts = posts.concat(
+          res.results.filter((v) =>
+            this.isPageObjectResponse(v)
+          ) as PageObjectResponse[]
+        );
+      } while (has_more);
+```
 
 
 ## Notionから取得した記事と既存リポジトリとの差分確認
