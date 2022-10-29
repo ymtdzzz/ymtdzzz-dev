@@ -1,5 +1,5 @@
 ---
-title: テスト記事 - updated
+title: test article
 date: 2022-10-26
 tags:
  - Makefile
