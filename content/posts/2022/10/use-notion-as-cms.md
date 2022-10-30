@@ -73,7 +73,7 @@ Notion APIに公式クライアントがあるのでありがたく使わせて�
 
 
 ```typescript
-	do {
+do {
         const res: QueryDatabaseResponse = await this.client.databases.query({
           database_id: database_id,
           start_cursor: cursor,
@@ -145,14 +145,168 @@ for (const page of pages) {
 ### Git関連の操作
 
 
+nodejsでGit関連の操作を行うために、今回はsimple-gitを使用しました。
+
+
+[https://github.com/steveukx/git-js](https://github.com/steveukx/git-js)
+
+
+マシン上のgitバイナリをラップしている形なのでgitで行いたい操作は一通り叩けます。下記はcloneしてremote branchのリストを取得している部分です。
+
+
+```typescript
+const git = simpleGit({
+      baseDir: `${process.cwd()}/tmp`,
+      binary: "git",
+      maxConcurrentProcesses: 6,
+      trimmed: false,
+    });
+// ...
+try {
+      await git.clone(config.github.repo, ".");
+      const summary = await res._git.branch();
+      res._branches = summary.all.filter((v) =>
+        v.startsWith(res._branch_remote_prefix)
+      );
+    } catch (e) {
+      throw e;
+    }
+```
+
+
+差分を検知した場合はmdを上書き（または新規作成）して、画像ファイルも再配置しそれぞれ`add()`, `commit()`, `push()`しています。
+
+
+### 差分検知
+
+
+差分検知の流れは下記の通りです。
+
+1. Notion APIからmdに変換（A）
+2. 既存ファイルのmdを読み込み
+3. 画像ファイルのパスを修正（UUID使用。後述）
+4. 差分がある場合（A）でmdを上書き
+5. 画像をnotionのS3からダウンロードし、これも再配置する
+
 ### 画像パスがS3の署名付きURLで毎回差分が出てしまう問題
+
+
+Notion APIからmdに変換した直後のファイル（画像ファイル部分）はこんな感じになっています（文字列は適当に変更しています）。
+
+
+あと、実装的に下記のコードも画像パスとして認識されてしまうので一部全角にしています…w
+
+
+```markdown
+！[](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5c8ecebd-9792-4eb1-9f9c-b9e65f359392/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=HOGEHOGEus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221030T102329Z&X-Amz-Expires=86400&X-Amz-Signature=hogehoge&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+```
+
+
+Notionの仕様として、画像ファイルは全てS3にアップロードされ、アクセスには署名付きURLが必要になります。署名付きURLはAPIを叩く度に変更されますので、画像の変更が無くても差分が出てしまう問題が発生しました。
+
+
+解決策としてはパスのUUIDで同一性を判定する方法があります。上記の例だと`5c8ecebd-9792-4eb1-9f9c-b9e65f359392`になります。
+
+
+差分の確認を行う前にmdで下記のように置換を行います。
+
+
+```markdown
+# 変更前
+！[](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5c8ecebd-9792-4eb1-9f9c-b9e65f359392/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=HOGEHOGEus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221030T102329Z&X-Amz-Expires=86400&X-Amz-Signature=hogehoge&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+# 変更後
+！[5c8ecebd-9792-4eb1-9f9c-b9e65f359392.png](assets/images/notion/5c8ecebd-9792-4eb1-9f9c-b9e65f359392.png)
+```
+
+
+これだけだと画像の位置が変わっただけでもimageが再ダウンロードされてしまうので、Notion APIから取得した最新情報からUUIDのリストを取得しておき、それらが含まれるimageはそれぞれ削除しておきます。
+
+
+```typescript
+private deleteExistingImages(md: string, uuids: string[]): string {
+    const lines = md.split(/\r?\n/);
+    for (let [idx, line] of lines.entries()) {
+      line = line.trim();
+      if (!line.startsWith("![")) continue;
+
+      let found = false;
+      for (const uuid of uuids) {
+        if (line.includes(uuid)) {
+          found = true;
+          break;
+        }
+      }
+      if (found) {
+        lines.splice(idx, 1);
+      }
+    }
+
+    return lines.join("\n");
+  }
+```
+
+
+そんな感じで
+
+- 画像ファイルを毎回ダウンロードしなくて済む
+- 画像ファイルが同じで位置が変わっただけでも無駄にダウンロードしない
+
+を実現しました。
 
 
 ## Gitのcommit&pushからのPR作成
 
 
-TBD
+imageのダウンロードにはimage-downloaderを使わせていただきました。
+
+
+[https://www.npmjs.com/package/image-downloader](https://www.npmjs.com/package/image-downloader)
+
+
+ダウンロードまで完了したらcommit&pushします。
+
+
+```typescript
+await this._git.add(this.getMdPathForGit(page));
+    await this._git.add(`${this.getImageDirForGit()}/*`);
+    await this._git.commit(`update post ${page.permalink}`);
+    await this._git.push(
+      "origin",
+      `${this._branch_local_prefix}${page.permalink}`,
+      { "--set-upstream": null }
+    );
+```
+
+
+最後に、PRを作成して終わりです。PRが既に存在する場合はスキップします。
+
+
+```typescript
+// create PR if not exists
+    const pr = await this._github.rest.search.issuesAndPullRequests({
+      q: `is:pr is:open "${this.getPRTitle(page)}"`,
+    });
+    if (pr.data.total_count === 0) {
+      console.log("PR is not found, creating...");
+      await this._github.rest.pulls.create({
+        owner: this._github_user,
+        repo: this._github_repo_name,
+        head: `${this._github_user}:${this._branch_local_prefix}${page.permalink}`,
+        base: "main",
+        title: this.getPRTitle(page),
+      });
+      console.log("Done");
+      return;
+    }
+    console.log("PR already exists");
+```
 
 
 # 実行場所
+
+
+Notion APIにweb hook的な機能が無いみたいなのでこちらから取りに行く必要があります。が、記事を書くのは自分しかいないので、記事を書いて公開したいときに任意に実行できる　で良いかと思っています。
+
+
+今のところGithub Actionsで実行できるようにしてみようと思います。
 
