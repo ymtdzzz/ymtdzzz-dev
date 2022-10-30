@@ -26,6 +26,9 @@ category: Programming
 使い方とかは別で記事にしようと思っているので、ここでは主に実装にフォーカスした内容を書きます。
 
 
+# Table of Contents
+
+
 # 全体の流れ
 
 
@@ -70,7 +73,7 @@ Notion APIに公式クライアントがあるのでありがたく使わせて�
 
 
 ```typescript
-		do {
+	do {
         const res: QueryDatabaseResponse = await this.client.databases.query({
           database_id: database_id,
           start_cursor: cursor,
@@ -109,7 +112,7 @@ Notion APIに公式クライアントがあるのでありがたく使わせて�
 `query()`の結果に`has_more`があるので、それが`true`の間記事を取得し続ける感じです。また、`next_cursor`で毎回取得位置を設定しています。
 
 
-最後に配列に詰める際にisPageObjectReponse()で型ガードで確認しつつ型アサーションしてますが、`query()`の戻りの型が`(PartialPageObjestResponse | PageObjectResponse)[]`なので入れています。Partialの方は`type`と`id`しかpropertyが無いのですが、多分今回の叩き型だとそっちは対象データじゃ無さそうなので。
+最後に配列に詰める際にisPageObjectReponse()で型ガードで確認しつつ型アサーションしてますが、`query()`の戻りの型が`(PartialPageObjestResponse | PageObjectResponse)[]`なので入れています。Partialの方は`type`と`id`しかpropertyが無いのですが、多分今回の叩き方だとそっちは対象データじゃ無さそうなので。
 
 
 ### markdownへの変換
