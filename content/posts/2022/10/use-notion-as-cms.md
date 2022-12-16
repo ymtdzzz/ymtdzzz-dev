@@ -1,6 +1,6 @@
 ---
 title: NotionをCMSとして使うためのアプリ実装
-date: 2022-10-29
+date: 2022-10-30
 tags:
  - Notion
  - Typescript

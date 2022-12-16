@@ -1,6 +1,6 @@
 ---
 title: コントリビューター視点でのOpenTelemetry Demoの使い道を考える
-date: 2022-11-28
+date: 2022-12-04
 tags:
  - OpenTelemetry
  - Go
