@@ -1,6 +1,6 @@
 ---
 title: 【OpenTelemetry】カスタムPropagatorでバッチや非同期処理のTraceを行う
-date: 2022-12-02
+date: 2022-12-16
 tags:
  - OpenTelemetry
  - Go
