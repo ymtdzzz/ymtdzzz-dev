@@ -46,6 +46,9 @@ category: Observability
 [https://github.com/ymtdzzz/batch-tracing-sample](https://github.com/ymtdzzz/batch-tracing-sample)
 
 
+（実行方法などはREADME参照。`docker compose up -d`で上がります）
+
+
 今回は下記のような構成を例にしてみます。
 
 
@@ -103,7 +106,7 @@ propagatorは、その名の通りcontextをプロセス間で受け渡しする
 context propagationは、contextを何らかの形でプロセス間のメッセージの中に注入（Inject）し、受信側はそのメッセージからcontextを抽出（Extract）することで実現されますが、その注入方法と抽出方法を定義したものになります。また、各propagatorはcarrierを持っており、それが実際のInject/Extractを担当します。
 
 
-幸いにもRabbitMQにはメッセージにkey-value形式の`Headers`を入れることができる（[doc](https://www.rabbitmq.com/publishers.html#message-properties)）ので、TextMapPropagatorを使ってcontext propagationできそうです。図にすると下記の通りです。
+幸いにもRabbitMQにはメッセージにkey-value形式の`Headers`を入れることができる（[doc](https://www.rabbitmq.com/publishers.html#message-properties)）ので、`TextMapPropagator`を使ってcontext propagationできそうです。図にすると下記の通りです。
 
 
 ![66de15ed-1965-4602-ab96-e4f8c1cf4176.jpeg](../../../../gridsome-theme/src/assets/images/notion/66de15ed-1965-4602-ab96-e4f8c1cf4176.jpeg)
