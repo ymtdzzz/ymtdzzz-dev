@@ -17,7 +17,7 @@ instrumentationできることはもちろんですが、アクセスログの�
 
 見たところ、使えそうなモジュールは２種類ありそうでした。
 
-- [h](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/c2811844264473e18ff9c83c61a40cc50a15309e/instrumentation/nginx)[https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/nginx](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/nginx)
+- [https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/nginx](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/nginx)
 - [https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/otel-webserver-module](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/otel-webserver-module)
 
 機能部分比較してみましたが、ログ出力などで利用可能な変数やディレクティブの豊富さなどを考えると、前者のnginx instrumentationが良さそうです。
@@ -29,7 +29,7 @@ instrumentationできることはもちろんですが、アクセスログの�
 [https://github.com/ymtdzzz/nginx-otel-sample](https://github.com/ymtdzzz/nginx-otel-sample)
 
 
-# ToC
+# Table of Contents
 
 
 # 導入方法はざっくり２通り
