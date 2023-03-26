@@ -191,7 +191,7 @@ nginxのバイナリと、ビルドしたモジュールのバージョンが一
 ### cmake関連のエラー
 
 
-<u>**nlohmann_json::nlohmann_json**</u>
+**nlohmann_json::nlohmann_json**
 
 
 ```text
@@ -206,7 +206,7 @@ CMake Error at /usr/lib/cmake/opentelemetry-cpp/opentelemetry-cpp-target.cmake:1
 edgeの件はあったものの、とりあえずドキュメント通り`apk add opentelemetry-cpp-dev`後にビルドしたら出てきたエラー。
 
 
-<u>**nginx起動時のundefined symbol系**</u>
+**nginx起動時のundefined symbol系**
 
 
 最終的にgrpc, opentelemetry-cpp, nginx instrumentationをソースからビルドするときに遭遇した。
@@ -221,7 +221,7 @@ ZN4grpc6Status2OKE: symbol not found
 ```
 
 
-上のはたしかzlibstdc++のバージョンがビルド環境と使用環境で異なったのが原因で、下のは結局よくわからず（grpc関連だろうなとは思いつつ）、後述のDockerfileを作り上げたら解消していた。
+上のはたしかzlibstdc++のバージョンがビルド環境と使用環境で異なったのが原因で、下のは結局よくわからず（grpc関連だろうなとは思いつつ）、先述の完成版Dockerfileができたときには解消されてました。多分ビルド時のオプションの積み方が悪かったのかなーと思います。
 
 
 # 他ファイル
