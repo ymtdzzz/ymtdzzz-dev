@@ -17,22 +17,25 @@ instrumentationできることはもちろんですが、アクセスログの�
 
 見たところ、使えそうなモジュールは２種類ありそうでした。
 
-- [https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/c2811844264473e18ff9c83c61a40cc50a15309e/instrumentation/nginx](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/c2811844264473e18ff9c83c61a40cc50a15309e/instrumentation/nginx)
+- [h](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/c2811844264473e18ff9c83c61a40cc50a15309e/instrumentation/nginx)[https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/nginx](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/nginx)
 - [https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/otel-webserver-module](https://github.com/open-telemetry/opentelemetry-cpp-contrib/tree/main/instrumentation/otel-webserver-module)
 
 機能部分比較してみましたが、ログ出力などで利用可能な変数やディレクティブの豊富さなどを考えると、前者のnginx instrumentationが良さそうです。
 
 
-なお、サンプル実装のリポジトリはこちらです。
+なお、今回の記事で取り上げたサンプル実装のリポジトリはこちらです。
 
 
 [https://github.com/ymtdzzz/nginx-otel-sample](https://github.com/ymtdzzz/nginx-otel-sample)
 
 
+# ToC
+
+
 # 導入方法はざっくり２通り
 
 
-## 推奨パターン）nginx: stable or mainline, os: linux or debian
+## 1. nginx: stable or mainline, os: linux or debian（推奨パターン）
 
 
 nginxはstableかmainlineを使っていて、環境がlinuxかdebianの場合は[Github Actions](https://github.com/open-telemetry/opentelemetry-cpp-contrib/actions/runs/3849659523)に上がっている`.so`ファイルをダウンロードして、nginxで読み込めばOKです。
@@ -41,7 +44,7 @@ nginxはstableかmainlineを使っていて、環境がlinuxかdebianの場合�
 ただし、現状nginxのstableが`1.22.1`、mainlineが`1.23.3`となっているのと、コンテナ環境だとalpineなんかで運用しているケースも多いと思いますが、その場合はこちらの方法は使えません。
 
 
-## それ以外の場合　※当記事のスコープ
+## 2. それ以外の場合　※当記事のスコープ
 
 
 今回はこちらで見てみようと思います。仕事でも一部サーバーがopenrestyの1.19系なのもあり、古いサーバーで動かせるかどうか見てみようと思いました。
