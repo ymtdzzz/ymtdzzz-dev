@@ -160,11 +160,7 @@ func TestGreeting(t *testing.T) {
 まず、初期状態を下記の通りとします。
 
 
-```mermaid
-gitGraph
-   commit id: "commit-03"
-   commit id: "commit-04"
-```
+![cb5d1fb4-f4cc-4c21-95a8-7bb024da7b4d.png](../../../../gridsome-theme/src/assets/images/notion/cb5d1fb4-f4cc-4c21-95a8-7bb024da7b4d.png)
 
 
 ## Aさん）`greeting()`を修正
@@ -176,15 +172,7 @@ gitGraph
 Aさんは新たにブランチをチェックアウトし、`greeting()`について、「引数`name`が`12`文字以上の場合、`Longname`という名前として扱われる」処理を追加したとします。
 
 
-```mermaid
-gitGraph
-   commit id: "commit-03"
-   commit id: "commit-04"
-   branch a/feature/greeting-longname
-   checkout a/feature/greeting-longname
-   commit id: "feat(greeting): Treat over 11 chars as `Longname`"
-   commit id: "fix(test): Add test case"
-```
+![4b2ed6bc-76c3-4bc8-8335-bf658ab23308.png](../../../../gridsome-theme/src/assets/images/notion/4b2ed6bc-76c3-4bc8-8335-bf658ab23308.png)
 
 
 テストコードの修正も行ったため、CIで実行される単体テストは通っている状態です。
@@ -234,19 +222,7 @@ index 40cc491..2511e44 100644
 Bさんは、Aさんと同じタイミングでmainから作業ブランチをチェックアウトし、`getMSG()`について、「引数`d`が`18`時以降の場合`Good evening`を返す」処理を追加したとします。
 
 
-```mermaid
-gitGraph
-   commit id: "commit-03"
-   commit id: "commit-04"
-   branch a/feature/greeting-longname
-   checkout a/feature/greeting-longname
-   commit id: "feat(greeting): Treat over 11 chars as `Longname`"
-   commit id: "fix(test): Add test case (A)"
-   checkout main
-   branch b/feature/getmsg-evening
-   commit id: "feat(getmsg): Good evening support"
-   commit id: "fix(test): Add test case (B)"
-```
+![f9d34a6c-9b0f-4982-9978-e5b57e47095d.png](../../../../gridsome-theme/src/assets/images/notion/f9d34a6c-9b0f-4982-9978-e5b57e47095d.png)
 
 
 修正内容は下記の通りです。
@@ -323,21 +299,7 @@ index 40cc491..0c9c16d 100644
 ### Aさんの対応をマージ
 
 
-```mermaid
-gitGraph
-   commit id: "commit-03"
-   commit id: "commit-04"
-   branch a/feature/greeting-longname
-   checkout a/feature/greeting-longname
-   commit id: "feat(greeting): Treat over 11 chars as `Longname`"
-   commit id: "fix(test): Add test case (A)"
-   checkout main
-   branch b/feature/getmsg-evening
-   commit id: "feat(getmsg): Good evening support"
-   commit id: "fix(test): Add test case (B)"
-   checkout main
-   merge a/feature/greeting-longname
-```
+![220f9930-1fc1-491f-a4d2-cef9d83e6c68.png](../../../../gridsome-theme/src/assets/images/notion/220f9930-1fc1-491f-a4d2-cef9d83e6c68.png)
 
 
 マージ後のmainブランチのCIも通ります。
@@ -349,23 +311,7 @@ gitGraph
 続いてBさんのPRについても、特にコンフリクトすることなくマージすることが可能です。マージしてみましょう。
 
 
-```mermaid
-gitGraph
-   commit id: "commit-03"
-   commit id: "commit-04"
-   branch a/feature/greeting-longname
-   checkout a/feature/greeting-longname
-   commit id: "feat(greeting): Treat over 11 chars as `Longname`"
-   commit id: "fix(test): Add test case (A)"
-   checkout main
-   branch b/feature/getmsg-evening
-   commit id: "feat(getmsg): Good evening support"
-   commit id: "fix(test): Add test case (B)"
-   checkout main
-   merge a/feature/greeting-longname
-   checkout main
-   merge b/feature/getmsg-evening
-```
+![62f2b824-0940-4813-ad82-4fb3a33de93c.png](../../../../gridsome-theme/src/assets/images/notion/62f2b824-0940-4813-ad82-4fb3a33de93c.png)
 
 
 ### mainでCI落ちた
@@ -436,11 +382,7 @@ index cc28123..4e9dff4 100644
 +++ b/.github/workflows/ci.yaml
 @@ -7,6 +7,9 @@ on:
    pull_request:
-     branches:
-       - "*"
 +  merge_group:
-+    types:
-+      - "checks_requested"
  
  jobs:
    ci:
