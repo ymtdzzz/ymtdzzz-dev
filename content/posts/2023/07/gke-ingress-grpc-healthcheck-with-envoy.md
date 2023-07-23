@@ -23,7 +23,7 @@ category: Infrastructure
 元々GKE上に構築したgRPCサーバーをgrpc-gatewayで公開していたのですが、それを直接公開することになりました（クライアント起因でHTTPにする必要があったが、その必要が無くなったため）。
 
 
-できればサービスメッシュでクライアントサイドでロードバランシングするような方法を採りたかったのですが、AWS（ECS）から呼び出されるようなAPIを提供していたためロードバランサーで公開する方針になりました。
+できればサービスメッシュでクライアントサイドでロードバランシングするような方法を採りたかったのですが、AWS（ECS）から呼び出されるようなAPIを提供していたため、クラウドサービス間を跨いだ大規模なメッシュを構成するコストと比較して簡易になる方法としてロードバランサーで公開する方針になりました。
 
 
 **元々の構成**
@@ -206,7 +206,7 @@ clusters:
 
 
 ```bash
-$ curl http://localhost:8081/clusters                                                                                                                                                                                  2023年07月23日 22時09分14秒
+$ curl http://localhost:8081/clusters
 local_admin::observability_name::local_admin
 ...
 my_service::172.21.0.2:9000::health_flags::healthy
@@ -215,7 +215,7 @@ my_service::172.21.0.2:9000::health_flags::healthy
 
 
 ```bash
-curl http://localhost:8081/clusters                                                                                                                                                                                      2023年07月23日 22時10分39秒
+curl http://localhost:8081/clusters
 local_admin::observability_name::local_admin
 ...
 my_service::172.21.0.2:9000::health_flags::/failed_active_hc/active_hc_timeout
