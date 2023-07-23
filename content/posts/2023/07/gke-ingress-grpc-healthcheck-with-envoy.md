@@ -26,19 +26,16 @@ category: Infrastructure
 できればサービスメッシュでクライアントサイドでロードバランシングするような方法を採りたかったのですが、AWS（ECS）から呼び出されるようなAPIを提供していたためロードバランサーで公開する方針になりました。
 
 
-```mermaid
-flowchart TD
-    c["Client (AWS ECS)"] -->|HTTP| lb["Load Balancer (GCP created by GKE Ingress)"]
-		lb -->|HTTP| p["HTTP proxy (GKE)"]
-		p -->|gRPC| a["gRPC server (GKE)"]
-```
+**元々の構成**
 
 
-```mermaid
-flowchart TD
-    c["Client (AWS ECS)"] -->|gRPC| lb["Load Balancer (GCP created by GKE Ingress)"]
-		lb -->|gRPC| a["gRPC server (GKE)"]
-```
+![0d002858-e8cd-458d-9951-47083222afb6.png](../../../../gridsome-theme/src/assets/images/notion/0d002858-e8cd-458d-9951-47083222afb6.png)
+
+
+**変更後の構成**
+
+
+![5b9812de-b8c0-4aa4-9d8f-8ece7d849a12.png](../../../../gridsome-theme/src/assets/images/notion/5b9812de-b8c0-4aa4-9d8f-8ece7d849a12.png)
 
 
 # ヘルスチェック問題
@@ -127,12 +124,7 @@ envoyには、バックエンドの状態などを取得できる管理者（adm
 ヘルスチェックの場合、ヘルスチェック結果をadminエンドポイントに問い合わせて結果を返却します。Luaスクリプトを実行します。
 
 
-```mermaid
-flowchart TD
-    c["Client"] -->|"HTTPS GET /healthz"| p["envoy proxy"]
-		p -->|"GET admin /clusters (executing Lua script)"| p
-		p -->|200 or 503| c
-```
+![bf526297-2980-4d7d-a096-6085594b6fec.png](../../../../gridsome-theme/src/assets/images/notion/bf526297-2980-4d7d-a096-6085594b6fec.png)
 
 
 ### それ以外のリクエストが来た場合
@@ -141,13 +133,7 @@ flowchart TD
 それ以外の通常のリクエストが来た場合、バックエンドにリクエストをパススルーしてそのまま結果を返却します。
 
 
-```mermaid
-flowchart TD
-    c["Client"] -->|"gRPC hogeService/XXX.YYYMethod"| p["envoy proxy"]
-		p -->|pass through| a["gRPC server"]
-		a -->|response| p
-		p -->|response| c
-```
+![5c1a7f0e-41d3-4795-8ef6-662ea4c83e2e.png](../../../../gridsome-theme/src/assets/images/notion/5c1a7f0e-41d3-4795-8ef6-662ea4c83e2e.png)
 
 
 ## Adminエンドポイントとヘルスチェック
