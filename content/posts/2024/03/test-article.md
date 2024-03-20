@@ -12,5 +12,5 @@ category: Diary
 aiueo
 
 
-![7c5da3e6-ee79-4b5f-9a2c-a16179fc9247.png](../../../../gridsome-theme/src/assets/images/notion/7c5da3e6-ee79-4b5f-9a2c-a16179fc9247.png)
+![be2b094b-d521-4b3e-9c99-96c9b562799b.png](../../../../gridsome-theme/src/assets/images/notion/be2b094b-d521-4b3e-9c99-96c9b562799b.png)
 
