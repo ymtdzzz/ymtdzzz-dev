@@ -109,14 +109,7 @@ otel-desktop-viewerについてはotel-tui自体かなり影響を受けてい�
 otel-tuiはotel-desktop-viewerと同様、[OpenTelemetry Collector Builder (ocb)](https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder)を用いて生成される独自コレクターとして実装されています。
 
 
-```mermaid
-flowchart TD
-    App[計装済みアプリ] -->|テレメトリの送信| R["Receiver(OTLP)"]
-    subgraph C ["独自コレクター（ocbによる自動生成）"]
-        R --> E["TUI Exporter"]
-    end
-    D((利用者)) -->|閲覧＆操作| C
-```
+![03d74e31-8f32-4de0-80ac-93230d41f2d0.png](../../../../gridsome-theme/src/assets/images/notion/03d74e31-8f32-4de0-80ac-93230d41f2d0.png)
 
 
 これにより、OTLPを話すための処理については考える必要がなく、テレメトリの保存や表示といったメインロジックに集中することが可能になります。また、Receiverの差し替えも容易になります。
