@@ -91,13 +91,16 @@ OpenTelemetryで出力したテレメトリについても同じようなノリ�
 - [jaeger](https://github.com/jaegertracing/jaeger)
 - [otel-desktop-viewer](https://github.com/CtrlSpice/otel-desktop-viewer)
 
-jaegerはall-in-oneコンテナもあるし機能的には申し分無いのですが、otel-desktop-viewerのモチベーションにあるようにコンテナに依存したり、UI的にも少しtoo muchな側面があるかと思います（色々なポートだったり自身のトレース出力、サービスマップなどの機能など）。
+jaegerはall-in-oneコンテナもあるし機能的には申し分無いのですが、[otel-desktop-viewerの開発動機](https://github.com/CtrlSpice/otel-desktop-viewer?tab=readme-ov-file#why-does-this-exist)にあるように、コンテナへの依存や、UI的にも少しtoo muchな側面があります（色々なポートだったり自身のトレース出力、サービスマップなど）。
 
 
-otel-desktop-viewerについてはotel-tui自体かなり影響を受けていて、デバッグ用途でとても使いやすく良いツールだと思っています。こちらはシングルバイナリで起動できますが、やはりブラウザで閲覧するアプローチです。
+otel-desktop-viewerについてはotel-tui自体かなり影響を受けていて、デバッグ用途でとても使いやすく良いツールだと思っています。こちらはシングルバイナリで起動できますが、やはりブラウザで閲覧するアプローチです。また、複数サービスをローカルで起動する場合などある程度流量が増えてきた場合に動作の重さが目立ちます（※ちゃんとベンチマーク取った訳ではありません）。
 
 
-後者については十分軽量ですし、otel-tuiが同じような機能を提供できるようになったとしても結局どちらを使うかは好みの問題になるかなと思っています（tigを使うかGitKrakenを使うか、k8s Web UIを使うかk9sを使うか　など）。
+とはいえどちらもローカルでのデバッグ用途では十分だと感じますし、otel-tuiが同じような機能を提供できるようになったとしても結局どちらを使うかは好みの問題になるかなと思っています（tigを使うかGitKrakenを使うか、k8s Web UIを使うかk9sを使うか　みたいな問題な気がする）。
+
+
+自分的にはもっとサクサク動くツール使いたかったという感じです。
 
 
 # アーキテクチャ
