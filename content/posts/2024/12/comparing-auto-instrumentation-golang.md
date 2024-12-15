@@ -14,7 +14,7 @@ category: Observability
 # はじめに
 
 
-これまでGoで書かれたアプリケーションをOpenTelemetryで計装するには、`net/http`や`redigo`、`database/sql`など各ライブラリ毎に対応する計装ライブラリを導入し差し替える必要がありました。これは、JavaやNodeJS、PHPといったzero-code計装が可能な言語に比べると導入ハードルが高くなる要因になり得そうです。
+これまでGoで書かれたアプリケーションをOpenTelemetryで計装するには、`net/http`や`redigo`、`database/sql`など各ライブラリ毎に対応する計装ライブラリを導入し差し替える必要がありました。これは、JavaやNodeJS、PHPといったzero-code計装が可能な言語に比べると導入ハードルが高くなる要因になり得ます。
 
 
 zero-code計装が難しい要因として、Golangがコンパイル言語であり実行時に計装用コードを差し込むことが困難なことが挙げられます。
@@ -24,6 +24,9 @@ zero-code計装が難しい要因として、Golangがコンパイル言語で�
 
 - [alibaba/opentelemetry-go-auto-instrumentation](https://github.com/alibaba/opentelemetry-go-auto-instrumentation/)（ビルド時に計装コードを差し込む）
 - [open-telemetry/opentelemetry-go-instrumentation](https://github.com/open-telemetry/opentelemetry-go-instrumentation)（eBPFの仕組みを利用）
+
+# Table of Contents
+
 
 ## 計装するサンプルアプリ
 
@@ -43,7 +46,7 @@ zero-code計装が難しい要因として、Golangがコンパイル言語で�
 動作確認は下記の環境で行いました。そのため、MacOSなど異なる環境では動作しない可能性があります。
 
 
-![d61809db-f3ab-4818-a462-7eb44a3007f7.png](images/notionimages/notion/d61809db-f3ab-4818-a462-7eb44a3007f7.png)
+![d61809db-f3ab-4818-a462-7eb44a3007f7.png](../../../../gridsome-theme/src/assets/images/notion/d61809db-f3ab-4818-a462-7eb44a3007f7.png)
 
 
 # alibaba/opentelemetry-go-auto-instrumentation
@@ -100,10 +103,10 @@ OpenTelemetry用の環境変数を設定して起動すれば、テレメトリ�
 `docker compose up`で環境を起動し、`http://localhost:8080/call-b`にアクセスすると、TraceやMetricが送信され始めます。
 
 
-![f470fac3-c70e-43c0-b402-d1f98c36159e.png](images/notionimages/notion/f470fac3-c70e-43c0-b402-d1f98c36159e.png)
+![f470fac3-c70e-43c0-b402-d1f98c36159e.png](../../../../gridsome-theme/src/assets/images/notion/f470fac3-c70e-43c0-b402-d1f98c36159e.png)
 
 
-![5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png](images/notionimages/notion/5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png)
+![5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png](../../../../gridsome-theme/src/assets/images/notion/5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png)
 
 
 attributesの出力内容などは最後に比較しますが、sql以外は特にcontextを受け渡したりしていないのにも関わらずトレースがきちんと繋がっていることに驚きました（redisのdurationがマイナスになってるのはPINGのような一瞬で終わる処理だから？）。
@@ -130,7 +133,7 @@ attributesの出力内容などは最後に比較しますが、sql以外は特�
 また、ログについても、出力内容に`trace_id`と`span_id`がappendされていることがわかります。
 
 
-![facd9862-bb59-4152-a771-13127fe4c9bb.png](images/notionimages/notion/facd9862-bb59-4152-a771-13127fe4c9bb.png)
+![facd9862-bb59-4152-a771-13127fe4c9bb.png](../../../../gridsome-theme/src/assets/images/notion/facd9862-bb59-4152-a771-13127fe4c9bb.png)
 
 
 テレメトリとしてLogを出すのは未対応っぽいですが、そこはマッピングできるので十分許容範囲な気がします。
@@ -338,7 +341,7 @@ volumes:
 先程と同様にdocker composeで起動後`http://localhost:8082/call-b`にアクセスするとトレースが収集できます。
 
 
-![f46a9da4-e2c4-40b3-aba6-cb37b82b2cf2.png](images/notionimages/notion/f46a9da4-e2c4-40b3-aba6-cb37b82b2cf2.png)
+![f46a9da4-e2c4-40b3-aba6-cb37b82b2cf2.png](../../../../gridsome-theme/src/assets/images/notion/f46a9da4-e2c4-40b3-aba6-cb37b82b2cf2.png)
 
 
 こちらもきちんとトレースが繋がっていますね。なお、Redisクライアントについてはサポートされていないためトレースは出力されません。
