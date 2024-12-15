@@ -28,7 +28,7 @@ zero-code計装が難しい要因として、Golangがコンパイル言語で�
 - [alibaba/opentelemetry-go-auto-instrumentation](https://github.com/alibaba/opentelemetry-go-auto-instrumentation/)（ビルド時に計装コードを差し込む）
 - [open-telemetry/opentelemetry-go-instrumentation](https://github.com/open-telemetry/opentelemetry-go-instrumentation)（eBPFの仕組みを利用）
 
-## # 計装するサンプルアプリ
+## 計装するサンプルアプリ
 
 
 [ymtdzzz/go-auto-instrumentation-test](https://github.com/ymtdzzz/go-auto-instrumentation-test)
