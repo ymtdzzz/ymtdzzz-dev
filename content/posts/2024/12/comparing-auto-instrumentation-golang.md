@@ -11,6 +11,9 @@ category: Observability
 これは、[OpenTelemetry Advent Calendar 2024](https://qiita.com/advent-calendar/2024/opentelemetry) 16日目の記事です。
 
 
+# Table of Contents
+
+
 # はじめに
 
 
@@ -25,10 +28,7 @@ zero-code計装が難しい要因として、Golangがコンパイル言語で�
 - [alibaba/opentelemetry-go-auto-instrumentation](https://github.com/alibaba/opentelemetry-go-auto-instrumentation/)（ビルド時に計装コードを差し込む）
 - [open-telemetry/opentelemetry-go-instrumentation](https://github.com/open-telemetry/opentelemetry-go-instrumentation)（eBPFの仕組みを利用）
 
-# Table of Contents
-
-
-## 計装するサンプルアプリ
+## # 計装するサンプルアプリ
 
 
 [ymtdzzz/go-auto-instrumentation-test](https://github.com/ymtdzzz/go-auto-instrumentation-test)
