@@ -109,7 +109,7 @@ OpenTelemetry用の環境変数を設定して起動すれば、テレメトリ�
 ![5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png](../../../../gridsome-theme/src/assets/images/notion/5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png)
 
 
-attributesの出力内容などは最後に比較しますが、sql以外は特にcontextを受け渡したりしていないのにも関わらずトレースがきちんと繋がっていることに驚きました（redisのdurationがマイナスになってるのはPINGのような一瞬で終わる処理だから？）。
+attributesの出力内容なども申し分ないように思えますし、sql以外は特にcontextを受け渡したりしていないのにも関わらずトレースがきちんと繋がっていることに驚きました（redisのdurationがマイナスになってるのはPINGのような一瞬で終わる処理だから？）。
 
 
 ```go
@@ -130,7 +130,7 @@ attributesの出力内容などは最後に比較しますが、sql以外は特�
 ```
 
 
-また、ログについても、出力内容に`trace_id`と`span_id`がappendされていることがわかります。
+また、ログについても出力内容に`trace_id`と`span_id`がappendされていることがわかります。
 
 
 ![facd9862-bb59-4152-a771-13127fe4c9bb.png](../../../../gridsome-theme/src/assets/images/notion/facd9862-bb59-4152-a771-13127fe4c9bb.png)
@@ -151,10 +151,10 @@ alibaba/opentelemetry-go-auto-instrumentationでは、Golangのtoolexecという
 依存パッケージやバージョンの解決など色々と複雑なことやっているように見えますので、そこはスルーしてまずは各パッケージ毎に用意されたruleを見てみます。
 
 
-個人的にnet/httpのclientでcontextを渡していないのにきちんとトレースが繋がっているのが不思議だったので、[net/httpのrule](https://github.com/alibaba/opentelemetry-go-auto-instrumentation/tree/32af42919579fef40a724bf5fe6bb2a53455003e/pkg/rules/http)を見てみます。
+先程の動作確認時、net/httpのclientでcontextを渡していないのにきちんとトレースが繋がっているのが不思議だったので、[net/httpのrule](https://github.com/alibaba/opentelemetry-go-auto-instrumentation/tree/32af42919579fef40a724bf5fe6bb2a53455003e/pkg/rules/http)を見てみます。
 
 
-まずは、ruleの設定ファイルを確認します。
+まずはruleの設定ファイルを確認します。
 
 
 ```json
@@ -170,7 +170,7 @@ https://github.com/alibaba/opentelemetry-go-auto-instrumentation/blob/32af429195
 ```
 
 
-パッケージのimport pathやhookしたい対象のfunctionを指定しているようです。また、OnEnterとOnExitで指定されている関数が差し込む処理っぽいので、そこを探してみます。
+パッケージのimport pathやhookしたい対象のfunctionを指定しているようです。また、`OnEnter`と`OnExit`で指定されている関数が計装を差し込む処理っぽいので、そこを探してみます。
 
 
 ```go
@@ -198,7 +198,7 @@ func clientOnEnter(call api.CallContext, t *http.Transport, req *http.Request) {
 ```
 
 
-読み込みが足りておらず`call`の実体までは理解できていませんが、Request内容を`netHttpClientInstrumenter`に渡し、戻ってきた`ctx`を`req`に詰めているようです。恐らくTrace Contextの生成は`netHttpClientInstrumenter` でやってそうなので、そちらも覗いてみます。
+ざっと読んだ感じ、Request内容を`netHttpClientInstrumenter`に渡し、戻ってきた`ctx`を`req`に詰めているようです。恐らくTrace Contextの生成は`netHttpClientInstrumenter` でやってそうなので、そちらも覗いてみます。
 
 
 ```go
@@ -273,22 +273,22 @@ func (i *InternalInstrumenter[REQUEST, RESPONSE]) doStart(parentContext context.
 ```
 
 
-どうやらここが計装処理の実体のようです。ここでtraceをスタートし、先程定義して設定したExtractorを呼び出してAttributeなどにセットしているようです。そして、最後に新たなcontextを返却しています。
+どうやらここが計装処理の実体のようです。ここでSpanをスタートし、先程セットしたExtractorを呼び出してAttributeにセットしているようです。そして、最後に新たなcontextを返却しています。
 
 
 ruleの設定ファイルを作成し、それに合わせて必要なExtractorを定義してあげることで、他のパッケージでも自由にzero-codeすることができそうですね。
 
 
-[ドキュメント](https://github.com/alibaba/opentelemetry-go-auto-instrumentation/blob/main/docs/how-to-add-a-new-rule.md)ではos.Getenv()のruleを作成する簡単な事例も紹介されていますので、興味のある方はご参照ください。
+[ドキュメント](https://github.com/alibaba/opentelemetry-go-auto-instrumentation/blob/main/docs/how-to-add-a-new-rule.md)では`os.Getenv()`のruleを作成する簡単な事例も紹介されていますので、興味のある方はご参照ください。
 
 
 # open-telemetry/opentelemetry-go-instrumentation
 
 
-続いて[open-telemetry/opentelemetry-go-instrumentation](https://github.com/open-telemetry/opentelemetry-go-instrumentation)です。こちらは先程とは異なり、eBPFの仕組みを利用したzero-code計装の試みとなります。eBPFについては私自身あまり詳しくないですが、ユーザー領域で実行中のプログラム（プロセス）に対して特定のコードをアタッチする仕組みです。
+続いて[open-telemetry/opentelemetry-go-instrumentation](https://github.com/open-telemetry/opentelemetry-go-instrumentation)です。こちらは先程とは異なり、eBPFの仕組みを利用したzero-code計装の試みとなります。eBPFについては私自身あまり詳しくないですが、ユーザー領域で実行中のプログラム（プロセス）に対して特定のイベントにフックして任意の処理をカーネルのサンドボックス化されたメモリ上で実行する仕組みです。
 
 
-ではとりあえず使ってみます。ただし、この仕組みでは対応パッケージが少なく（後述）、HTTPサーバーはnet/httpのみ対応しているため、サンプルアプリケーションでは実装を切り替えています。
+では早速使ってみます。ただし、現状対応パッケージが少なく（後述）、HTTPサーバーはnet/httpのみ対応しているため、サンプルアプリケーションでは実装をnet/httpを利用したものに切り替えています（といっても環境変数で処理を分岐してるだけですが）。
 
 
 ```yaml
@@ -310,7 +310,7 @@ ruleの設定ファイルを作成し、それに合わせて必要なExtractor�
 ```
 
 
-また、こちらの仕組みはeBPFプログラムをサイドカーとして動かします。そのため、docker composeで計装するためには実行ファイルとプロセス情報取得用に`/proc` をマウントする必要があります。
+また、eBPFプログラムをサイドカーとして動かす必要があります。そのため、docker composeで計装するためには実行ファイルが配置されたvolumeと、プロセス情報取得用に`/proc` をマウントする必要があります。
 
 
 ```yaml
@@ -350,7 +350,7 @@ volumes:
 この方法の注意点としては、コード内できちんとcontextを引き回す実装になっていないとトレースが途切れてしまう点です。
 
 
-なお、仕組みや実装については時間の都合上省略します（全然読めていない）。詳細は[How it works](https://github.com/open-telemetry/opentelemetry-go-instrumentation/blob/main/docs/how-it-works.md)をご参照ください。
+なお、仕組みや実装については時間の都合＆私のeBPFに対する知識不足のため省略します！詳細は[How it works](https://github.com/open-telemetry/opentelemetry-go-instrumentation/blob/main/docs/how-it-works.md)をご参照ください。
 
 
 # 両者の比較
@@ -392,13 +392,13 @@ volumes:
 ## 拡張性
 
 
-alibabaのビルド時に差し込む方式についてはJSONとGolangでRuleを定義することで拡張が可能です。また、結局はコードの差し替えになるためcontextの差し替えなどRuleの柔軟性も高そうで、すでに充実していますが、今後色々なパッケージが対応されそうな気配を感じます。
+alibabaのビルド時に差し込む方式についてはJSONとGolangでRuleを定義することで拡張が可能です。また、ビルドプロセスでコードの差し替えを行なっているため、contextの差し込みなど柔軟性も高そうです。今後色々なパッケージが対応されそうな気配を感じます（すでにかなり充実していますが、）。
 
 
-対してOTelのeBPF方式は、probeの実装にC言語が利用されるためeBPFそれ自体へのキャッチアップも含めてハードルは高そうに思われました。（逆にその辺りに詳しい人だったらどんどん拡張できるのかなぁ？）
+対してOTelのeBPF方式は、probeの実装にC言語のコードが存在するためeBPFそれ自体へのキャッチアップも含めてハードルは高そうに思われました。（逆にその辺りに詳しい人だったらどんどん拡張できるのかなぁ？）
 
 
-あくまでもGolangの土俵で　と考えるとalibaba方式に軍配が上がるかもしれません。
+あくまでもGolangの土俵で　と考えるとalibabaのビルド方式に軍配が上がるかもしれません。
 
 
 ## 利用しやすさ
@@ -407,7 +407,7 @@ alibabaのビルド時に差し込む方式についてはJSONとGolangでRule�
 どちらも導入は楽でした。alibabaのビルド方式はビルドコマンドの差し替え、otelのeBPF方式はサイドカーで実行ファイルとプロセスの共有できればシュッと導入できます。
 
 
-ただ、eBPFの場合強めの権限を割り当てる必要があったり、共有ボリュームのマウントなどはハードルになる側面があるかもしれません。
+ただ、eBPFの場合強めの権限を割り当てる必要があったり、共有ボリュームのマウントなどはハードルになるケースがあるかもしれません。
 
 
 ## 事故りにくさ
@@ -416,20 +416,23 @@ alibabaのビルド時に差し込む方式についてはJSONとGolangでRule�
 実行ファイルへの影響度、実行時エラーの起こりにくさについてはプロセスが分離しているeBPFの方が良さそうです。
 
 
-ビルド方式でもエラーハンドリングは丁寧に行っておりメイン処理に影響を与えないような配慮はしてそうでしたが、柔軟なruleが作成できる分悪い影響を与えてしまうリスクはあるように思えます（それを言うなら計装ライブラリみんなそうですが）。
+ビルド方式でもエラーハンドリングは丁寧に行っておりメイン処理に影響を与えないような配慮は実装上見受けられますが、その柔軟性の高さ故に実行時エラーを引き起こすリスクはあるように思えます（それを言うなら計装ライブラリみんなそうですが）。
 
 
 ## パフォーマンス
 
 
-ベンチマークはとってないので今回は言及できません。構成も全然違うので何もわからない。
+ベンチマークはとってないので今回は言及できません。構成も全然違うので何もわからない！誰か〜！
 
 
 # さいごに
 
 
-どちらも実験的なフェーズではあると思いますが普通にちゃんとテレメトリ出ているので「ついにGolangにもzero-code計装の時代がやってきたか・・・！」と思いました。
+どちらも実験的なフェーズかと思いますが何もコードいじってないのにちゃんとテレメトリ出て感動しました。「ついにGolangにもzero-code計装の時代がやってきたか・・・！」と思いました。
 
 
-個人的にalibabaのビルド方式はtoolexecというGolangの仕組みに上手に乗っかっている感じがしてとても好きです。引き続きzero-code計装界隈はwatchしていこうと思います！
+個人的にalibabaのビルド方式はtoolexecというGolangの仕組みに上手に乗っかっている感じがしてとても好きです。eBPFの仕組みもとても可能性を感じられました。
+
+
+引き続きzero-code計装界隈はwatchしていこうと思います！現場からは以上です！
 
