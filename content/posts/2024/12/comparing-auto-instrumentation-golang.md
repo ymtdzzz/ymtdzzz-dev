@@ -8,7 +8,7 @@ published: true
 category: Observability
 ---
 
-これは、[Qiita - OpenTelemetry Advent Calendar 2024](https://qiita.com/advent-calendar/2024/opentelemetry) 16日目の記事です。
+これは、[OpenTelemetry Advent Calendar 2024](https://qiita.com/advent-calendar/2024/opentelemetry) 16日目の記事です。
 
 
 # はじめに
