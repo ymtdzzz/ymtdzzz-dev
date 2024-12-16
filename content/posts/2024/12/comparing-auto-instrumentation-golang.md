@@ -1,6 +1,6 @@
 ---
 title: Golangのzero-code auto instrumentation ２種食べ比べ
-date: 2024-12-15
+date: 2024-12-16
 tags:
  - Go
  - OpenTelemetry
@@ -109,7 +109,7 @@ OpenTelemetry用の環境変数を設定して起動すれば、テレメトリ�
 ![5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png](../../../../gridsome-theme/src/assets/images/notion/5b15a164-7fa2-4d10-bce9-7b0d479e5b42.png)
 
 
-attributesの出力内容なども申し分ないように思えますし、sql以外は特にcontextを受け渡したりしていないのにも関わらずトレースがきちんと繋がっていることに驚きました（redisのdurationがマイナスになってるのはPINGのような一瞬で終わる処理だから？）。
+attributesの出力内容なども申し分ないように思えますし、特にcontextを受け渡したりしていないのにも関わらずトレースがきちんと繋がっていることに驚きました（redisのdurationがマイナスになってるのはPINGのような一瞬で終わる処理だから？）。
 
 
 ```go
