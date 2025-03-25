@@ -3,6 +3,7 @@ title: 横断的にパッケージ管理できるツール「lazypkg」を作っ
 date: 2024-12-17
 tags:
   - Go
+  - post-to-zenn
 published: false
 category: Tool
 ---
@@ -37,7 +38,7 @@ https://github.com/ymtdzzz/lazypkg
 - npm
 - docker
 
-※dockerについてはdocker hubのAPI制限回避のためデフォルトOFFになっています
+> [!CAUTION] > dockerについてはdocker hubのAPI制限回避のためデフォルトOFFになっています
 
 # 使い方
 
@@ -68,7 +69,7 @@ lazypkg -v
 
 ![](../../../../gridsome-theme/src/assets/images/obsidian/lazypkg-package-manager/attachment-20250322224339102.png)
 
-※執筆前に全アプデしてしまったので以降はサンプルデータでのデモ画像です。
+> [!NOTE] > 執筆前に全アプデしてしまったので以降はサンプルデータでのデモ画像です。
 
 起動時点ではサイドバーにフォーカスがあたっています。
 
@@ -102,7 +103,7 @@ homebrewで管理している`terraform`だけアップデートしたいとし�
 
 `Enter`を押すことでパッケージアップデートが実行されます。実行ログは下段にリアルタイムで出力されます（`ctrl+j`、`ctrl+k`でスクロール可）。
 
-※demoモードなので適当なログを出していますが、実際は`brew upgrade terraform`が実行されると思います。
+> [!NOTE] > demoモードなので適当なログを出していますが、実際は`brew upgrade terraform`が実行されると思います
 
 ![](../../../../gridsome-theme/src/assets/images/obsidian/lazypkg-package-manager/attachment-20250322230211551.png)
 
@@ -143,9 +144,9 @@ topgradeは対応しているパッケージマネージャーもとても多く
 - アップデート可能なパッケージを確認したい
 - アップデートしたいパッケージをアップデートしたい
 
-これくらいかなと思います。これらの目的を満たすさえできればパッケージマネージャーが何であるかはどうでもよく、それらの管理方法の差異を全部lazypkgが吸収できればユーザー（自分）が快適にパッケージ管理を行えると考えました。
+これくらいかなと思います。これらの目的を満たすことさえできればパッケージマネージャーが何であるかはどうでもよく、それらの管理方法の差異をlazypkgが吸収できればユーザー（自分）が快適にパッケージ管理を行えると考えました。
 
-※今の所「ユーザー＝自分」ですが、lazypkgは今の所自分にとって欠かせないツールになっています
+> [!NOTE] > このうち、「インストールされているパッケージを確認したい」は、アップデート可能なものが確認できれば良さそうだったのでlazypkgのスコープ外にしています
 
 # 実装について
 
@@ -163,7 +164,7 @@ otel-tuiについてはトレースのスパンをターミナル上でマッピ
 
 https://github.com/charmbracelet/bubbletea
 
-実を言うとそこまできちんとPoCをした訳ではなく（個人開発なので・・・）、アップデートは少なくともパッケージ管理ツール単位で非同期で行うことを想定しており、そうなるとイベント駆動の方がやりやすいかな？と思ったからです。
+実を言うとそこまできちんとPoCをした訳ではなく（個人開発なので・・・）、lazypkgにおいてはパッケージのアップデート処理など非同期で行いたいケースも多くなりそうで、そうなるとイベント駆動の方がやりやすいかな？と思ったからです。
 
 Elmでは状態（Model）の変更はイベント（メッセージ）経由でのみ行えます。例えばパッケージのアップデートについても「アップデートの開始」と「アップデートの完了」で2種類のメッセージを定義しています。
 
@@ -198,10 +199,53 @@ type updatePackagesFinishMsg struct {
 
 tviewではこうした状態管理のフローは自前で設計する必要がありカオスになりがちな印象ですが、bubbleteaでは仕組みが用意されているので道を踏み外しにくいです。
 
-ただし、大規模なアプリになると扱うメッセージも増え、今の実装のようにメッセージが一つにずらずら書かれて各コンポーネントから参照する設計では無理が出てくると思います。
+ただし、大規模なアプリになると扱うメッセージも増え、今の実装のようにメッセージが一つのファイルにずらずら書かれて各コンポーネントから参照する設計では無理が出てくると思います。
 
 ## 拡張可能な設計
 
+今は限られたパッケージマネージャーしか対応していないですが、今後増やしやすいような設計にすることは意識しています。
 
+各パッケージマネージャーのCLIとやりとりを行うモジュールは`executor`と名付けており、以下のinterfaceを満たすことができればいくらでも追加が可能な作りになっています。
+
+```go
+// https://github.com/ymtdzzz/lazypkg/blob/85b8a4e01fb5c5a75797f530e8893e871759104b/executors/executor.go#L18-L39
+// Executor defines the interface for package management operations
+type Executor interface {
+	// GetPackages retrieves a list of available package updates.
+	// The password parameter is required for package managers that need elevated privileges.
+	GetPackages(password string) ([]*PackageInfo, error)
+
+	// Update performs an update operation on a single package.
+	// If dryRun is true, it will only simulate the update without making actual changes.
+	// The password parameter is required for package managers that need elevated privileges.
+	Update(pkg, password string, dryRun bool) error
+
+	// BulkUpdate performs update operations on multiple packages simultaneously.
+	// If dryRun is true, it will only simulate the updates without making actual changes.
+	// The password parameter is required for package managers that need elevated privileges.
+	BulkUpdate(pkgs []string, password string, dryRun bool) error
+
+	// Valid checks if the package manager is available and usable on the current system.
+	Valid() bool
+
+	// Close performs any necessary cleanup operations when the executor is no longer needed.
+	Close()
+}
+```
+
+[各実装](https://github.com/ymtdzzz/lazypkg/blob/85b8a4e01fb5c5a75797f530e8893e871759104b/executors/homebrew.go#L20-L48)を見るとわかりますが、Homebrewであれば`GetPackages()`では`brew outdated --verbose`の標準出力を正規表現でパースしたり、結構泥臭いことをやっています。
+
+また、引数として設定している`password`ですが、パスワード入力ダイアログ経由で渡せるようにひと工夫しています。
+
+- パスワード空文字で実行して失敗させる
+- エラー出力を検知して、エラーを詰めたメッセージをコンポーネントに渡してパスワードダイアログを表示
+	- 入力後のcallbackとして上記のコマンドを登録しておく
+- パスワード入力後、登録済みのcallbackにパスワードを渡して実行
+
+> [!NOTE] > パスワードはできるだけメモリに残さないようstructに載せたりせず、特定の関数のスコープ外には持ち出さないようにしています
 
 # さいごに
+
+lazypkgはシンプルなツールですが私自身毎日便利に使えています。追加したい機能（UIの改善や対応パッケージマネージャー追加など）はたくさんありますが、現状でもそこそこ使えるのでぼちぼちメンテしていくつもりです。
+
+もし同じようなパッケージ管理の悩みどころを抱えている方がいて、lazypkgが少しでもその解消の手助けになりましたら幸いです。フィードバックもお待ちしております！
