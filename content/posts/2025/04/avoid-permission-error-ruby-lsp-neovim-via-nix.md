@@ -4,6 +4,7 @@ date: 2025-04-27
 tags:
   - Ruby
   - trouble-shooting
+  - vim
 published: true
 category: Programming
 ---
