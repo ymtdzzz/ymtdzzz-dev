@@ -1,5 +1,5 @@
 ---
-title: asdfのrustプラグインのおすすめ
+title: asdfのおすすめrustプラグイン
 date: 2025-07-23
 tags:
   - rust
